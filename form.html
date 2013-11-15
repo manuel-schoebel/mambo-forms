@@ -1,0 +1,236 @@
+<!-- BASE FORM -->
+<template name="baseForm">
+  <form class="form {{class}}" id="{{id}}">
+    {{#if title}}
+    <div class="form-header">
+      <h1>{{title}}</h1>
+    </div>
+    {{/if}}
+    <div class="form-body">
+      {{#if formHint}}
+        <div class="alert alert-{{formHint.alertType}}">
+          {{ formHint.text }}
+        </div>
+      {{/if}}
+      {{#each formFields}}
+        {{renderFormField this}}
+      {{/each}}
+    </div>
+    <div class="form-actions">
+      <div class="{{#if actionsRight}}pull-right{{/if}}">
+        {{#each actions}}
+          {{renderFormAction this}}
+        {{/each}}
+      </div>
+    </div>
+  </form>
+</template>
+
+<!-- FORM ACTIONS -->
+<template name="formActionButton">
+  <button class="btn btn-{{btnClass}} {{class}}" {{#if type}}type="{{type}}"{{/if}} {{{attributes}}}>
+    {{name}}
+  </button>
+</template>
+
+<template name="formActionHtml">
+  {{{html}}}
+</template>
+
+<!-- FORM ELEMENTS -->
+<template name="controlGroupWithInput">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label">{{ label }}</label>
+    {{#if formHint}}
+      <span class="form-hint">({{formHint}})</span>
+    {{/if}}
+    <input id="input-{{name}}" class="form-control" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" {{{attributes}}} {{#if disabled}}disabled="disabled"{{/if}} {{#if autofocus}}autofocus{{/if}} novalidate="novalidate">
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithMultipleRemovableInput">
+  <label class="control-label" for="input-{{name}}">{{ label }}</label>
+    {{#each values}}
+      {{> controlGroupWithRemovableInput }}
+    {{/each}}
+    {{#with getLastIndex}}
+      {{> controlGroupWithRemovableInput}}
+    {{/with}}
+  <button class="btn btn-{{addInputBtnType}} pull-right {{addInputBtnClass}}" type="button">+</button>
+  <div class="clearfix"></div>
+</template>
+<template name="controlGroupWithRemovableInput">
+  <div class="form-group {{ setErrorClass }}">
+    <div class="input-group">
+      <input class="form-control" id="input-{{name}}" name="{{ name }}" type="text" placeholder="{{placeholder}}" value="{{ value }}" {{#if disabled}}disabled="disabled"{{/if}}>
+      <span class="input-group-btn">
+        <button class="btn btn-{{btnType}} {{btnClass}}" type="button">{{{ removeHtml }}}</button>
+      </span>
+    </div>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>  
+</template>
+
+
+
+<template name="controlGroupWithInlineRadio">  
+  <div class="form-group {{ setErrorClass }}">
+    {{#if label}}
+      <label class="control-label">{{ label }}</label>
+      <br>
+    {{/if}}
+    {{#each radioBtns}}
+      <label class="radio-inline">
+        <input type="radio" id="{{id}}" value="{{value}}" name="{{name}}" {{#if checked}}checked="checked"{{/if}}> {{label}}
+      </label>
+    {{/each}}
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="helpBlock">
+  <span class="help-block">{{label}}</span>
+</template>
+
+<template name="controlGroupWithTextareaMaxChars">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label">{{ label }}</label>
+    <span id="{{name}}-chars-left" class="form-hint {{getCharsLeftClass}}">({{ charsLeft }} characters left)</span>
+    <textarea id="input-{{name}}" class="form-control" name="{{name}}" placeholder="{{placeholder}}" rows="{{rows}}">{{ value }}</textarea>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField name }}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithSelect">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label">{{label}}</label>
+    <select name="{{name}}" class="form-control">
+      {{#each options}}
+        <option value="{{ key }}" {{#if selected}}selected="selected"{{/if}}>{{ label }}</option>
+      {{/each}}
+    </select>
+    <span id="{{name}}-help" class="text-danger" {{ helpTextVisibleStyle}}>{{ getHelpTextForField}}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithCheckbox">
+  <div class="form-group {{ setErrorClass }}">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="{{name}}" value="{{value}}" {{#if checked}}checked="checked"{{/if}}>
+        {{#if tplHref}}<a href="{{tplHref}}" target="_blank">{{ label }}</a>{{else}}{{label}}{{/if}}
+      </label>
+    </div>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<!-- NEEDED??? -->
+<template name="controlGroupFileInput">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label" for="input-{{name}}">{{ label }}</label>
+    <input id="input-{{name}}" class="form-control" name="{{ name }}" type="{{ type }}" value="{{ value }}">
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithTextarea">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label" for="input-{{name}}">{{ label }}</label>
+    <textarea id="input-{{name}}" class="form-control {{class}}" name="{{ name }}" placeholder="{{ placeholder }}" rows="{{ rows }}">{{ value }}</textarea>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithRichTextarea">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label" for="input-{{name}}">{{ label }}</label>
+    <textarea id="input-{{name}}" class="form-control {{class}}" name="{{ name }}" rows="{{ rows }}">{{ value }}</textarea>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithInputGroupAddon">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label" for="input-{{name}}">{{ label }}</label>
+    <div class="input-group">
+      {{#if addonLeft }}
+      <span class="input-group-addon">{{ addonLeft.text }}</span>
+      {{/if}}
+      <input class="form-control" id="input-{{name}}" name="{{ name }}" type="text" placeholder="{{placeholder}}" value="{{ value }}" {{#if disabled}}disabled="disabled"{{/if}}>
+      {{#if addonRight}}
+      <span class="input-group-addon">{{ addonRight.text }}</span>
+      {{/if}}
+    </div>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="textareaTpl">
+  <textarea id="input-{{name}}" class="form-control {{class}}" name="{{ name }}" rows="{{ rows }}">{{{ value }}}</textarea>
+</template>
+
+<template name="inputTpl">
+  <input id="input-{{name}}" name="{{ name }}" type="text" placeholder="{{placeholder}}" value="{{ value }}" {{#if disabled}}disabled="disabled"{{/if}}>
+</template>
+
+<template name="controlGroupWithDivBetweenInputs">
+  <div class="form-group {{ setErrorClass }}">
+    <div class="row">
+      <div class="col-lg-12">
+        <label class="control-label">{{ label }}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="{{ leftInput.class }}">
+        <input name="{{ leftInput.name }}" class="form-control" type="{{ leftInput.type }}" placeholder="{{leftInput.placeholder}}">
+      </div>
+      <div class="{{ divBetween.class }}">
+        {{ divBetween.text }}
+      </div>
+      <div class="{{ rightInput.class }}">
+        <input name="{{ rightInput.name }}" class="form-control" type="{{ rightInput.type }}" placeholder="{{ rightInput.placeholder }}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-lg-12">
+        <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>
+          {{ getHelpTextForField }}
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="inputGroupWithRadio">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label">{{ label }}</label>
+    <div class="input-group">
+      {{#each options}}
+        <div class="radio">
+          <label>
+            <input type="radio" name="{{name}}" value="{{value}}" {{checked}}>
+            {{ text }}
+          </label>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+
+
+
+
+<template name="controlGroupWithInlineDiv">
+  <div class="form-group {{ setErrorClass }}">
+    <label class="control-label">{{label}}</label>
+    <div class="form-control controls-div">{{text}}</div>
+    <span id="{{ name }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="hiddenField">
+  <input type="hidden" name="{{name}}" value="{{value}}">
+</template>
