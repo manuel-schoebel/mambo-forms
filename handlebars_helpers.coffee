@@ -1,36 +1,34 @@
-Handlebars.registerHelper "renderFormField", (options) ->
-  new Handlebars.SafeString(Template[options.template](options))
-
 Handlebars.registerHelper "setErrorClass", ->
-  Form.getErrorClassForField @name
+  Form.getErrorClassForField @inputName
 
-Handlebars.registerHelper "getHelpTextForField", (name) ->
-  return Form.getHelpTextForField(name)  if _.isString(name)
-  return Form.getHelpTextForField(@name)
-  return @errorMessage  if Form.fieldHasError(@name)
+Handlebars.registerHelper "helpTextVisibleStyle", (inputName) ->
+  return Form.helpTextVisibleStyle(inputName) if _.isString(inputName)
+  Form.helpTextVisibleStyle @inputName
+
+Handlebars.registerHelper "getHelpTextForField", (inputName) ->
+  return Form.getHelpTextForField(inputName)  if _.isString(inputName)
+  return Form.getHelpTextForField(@inputName)
+  return @errorMessage  if Form.fieldHasError(@inputName)
   @successMessage
 
-Handlebars.registerHelper "renderInputTemplate", (tpl) ->
-  new Handlebars.SafeString(Template[tpl](@inputTemplate))
-
-Handlebars.registerHelper "renderForm", (options) ->
-  console.log 'renderForm', options
-  new Handlebars.SafeString(Template[options.template](options))
-
-Handlebars.registerHelper "renderFormAction", (options) ->
-  new Handlebars.SafeString(Template[options.template](options))
-
-Handlebars.registerHelper "helpTextVisibleStyle", (name) ->
-  return Form.helpTextVisibleStyle(name)  if _.isString(name)
-  Form.helpTextVisibleStyle @name
-
 Handlebars.registerHelper "getCharsLeftClass", ->
-  "text-danger" if Session.get("charsLeft" + @name) < 0
+  "text-danger" if Session.get("charsLeft" + @inputName) < 0
 
 Handlebars.registerHelper "charsLeft", ->
-  Session.get "charsLeft" + @name
+  Session.get "charsLeft" + @inputName
+
+Handlebars.registerHelper "renderFormField", (options) ->
+  Template[options.template].withData(options)
+
+Handlebars.registerHelper "renderInputTemplate", (tpl) ->
+  Template[tpl].withData(@inputTemplate)
+
+Handlebars.registerHelper "renderForm", (options) ->
+  Template[options.template].withData(options)
+
+Handlebars.registerHelper "renderFormAction", (options) ->
+  Template[options.template].withData(options)
 
 Handlebars.registerHelper "renderFormByModel", (model) ->
-  console.log "renderFormBySchema", arguments
   formData = Form.createFormDataFromSchema(model)
-  new Handlebars.SafeString(Template[formData.template](formData))
+  Template[formData.template].withData(formData)
