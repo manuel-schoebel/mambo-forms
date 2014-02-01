@@ -44,9 +44,8 @@ Form.getHelpTextForField = (name) ->
 Form.helpTextVisibleStyle = (name) ->
   formErrors = undefined
   formErrors = Session.get("formErrors")
-  return ""  unless formErrors
-  return "style=\"display:none;\""  unless formErrors
-  "style=\"display:block;"
+  return 'none' unless formErrors
+  'block'
 
 
 Form.createFormDataFromSchema = (model) ->
@@ -80,6 +79,7 @@ noLineBreaks = (str) ->
   noStr = str.replace(/(\r\n|\n|\r)/gm, '')
   return noStr
 
+###
 Template.controlGroupWithTextareaMaxChars.created = ->
   if @data.value
     Session.set "charsLeft" + @data.name, @data.maxChars - noLineBreaks(@data.value).length
@@ -108,3 +108,5 @@ Template.controlGroupWithMultipleRemovableInput.getLastIndex = () ->
   }
   console.log 'with', context
   return context
+
+###
