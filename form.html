@@ -68,6 +68,10 @@
     <span id="{{inputName}}-help" class="text-danger" {{ helpTextVisibleStyle}}>{{>getHelpTextForField}}</span>
   </div>
 </template>
+
+<template name="hiddenField">
+  <input type="hidden" name="{{inputName}}" value="{{value}}">
+</template>
 <!--
 <template name="controlGroupWithMultipleRemovableInput">
   <label class="control-label" for="input-{{inputName}}">{{ label }}</label>
@@ -230,7 +234,5 @@
   </div>
 </template>
 
-<template name="hiddenField">
-  <input type="hidden" name="{{inputName}}" value="{{value}}">
-</template>
+
 -->
