@@ -22,6 +22,7 @@
           {{>renderFormAction this}}
         {{/each}}
       </div>
+      <div class="clearfix"></div>
     </div>
   </form>
 </template>
@@ -29,7 +30,7 @@
 <!-- FORM ACTIONS -->
 <template name="formActionButton">
   <button class="btn btn-{{btnClass}} {{class}}" {{#if type}}type="{{type}}"{{/if}} {{{attributes}}}>
-    {{label}}
+    {{{label}}}
   </button>
 </template>
 
