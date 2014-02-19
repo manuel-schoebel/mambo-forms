@@ -44,6 +44,7 @@ Form.getHelpTextForField = (name) ->
 Form.helpTextVisibleStyle = (name) ->
   formErrors = undefined
   formErrors = Session.get("formErrors")
+  return ""  unless formErrors
   return 'none' unless formErrors
   'block'
 
