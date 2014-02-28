@@ -29,7 +29,7 @@
 
 <!-- FORM ACTIONS -->
 <template name="formActionButton">
-  <button class="btn btn-{{btnClass}} {{class}}" {{#if type}}type="{{type}}"{{/if}} {{{attributes}}}>
+  <button class="btn btn-{{btnClass}} {{class}}" type="{{type}}" {{{attributes}}}>
     {{{label}}}
   </button>
 </template>
@@ -45,7 +45,7 @@
     {{#if formHint}}
       <span class="form-hint">({{>formHint}})</span>
     {{/if}}
-    <input id="input-{{inputName}}" class="form-control" name="{{ inputName }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" {{{attributes}}} {{#if disabled}}disabled="disabled"{{/if}} {{#if autofocus}}autofocus{{/if}} novalidate="novalidate">
+    <input id="input-{{inputName}}" class="form-control" name="{{ inputName }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" {{{attributes}}} {{#if disabled}}disabled="disabled"{{/if}} {{#if autofocus}}autofocus="autofocus"{{/if}} novalidate="novalidate">
     <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{>getHelpTextForField }}</span>
   </div>
 </template>
@@ -63,7 +63,7 @@
     <label class="control-label">{{label}}</label>
     <select name="{{inputName}}" class="form-control">
       {{#each options}}
-        <option value="{{ key }}" {{#if selected}}selected="selected"{{/if}}>{{ label }}</option>
+        <option value="{{ key }}" {{#unless selected}}babla{{/unless}}>{{ label }}</option>
       {{/each}}
     </select>
     <span id="{{inputName}}-help" class="text-danger" {{ helpTextVisibleStyle}}>{{>getHelpTextForField}}</span>

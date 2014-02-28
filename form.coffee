@@ -29,7 +29,7 @@ Form.getErrorClassForField = (name) ->
 Form.removeFormError = (name) ->
   formErrors = undefined
   formErrors = Session.get("formErrors")
-  return  unless formErrors
+  return unless formErrors
   return Session.set("formErrors", null)  if arguments.length is 0
   delete formErrors[name]
 

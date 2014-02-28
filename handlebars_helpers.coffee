@@ -32,3 +32,7 @@ Handlebars.registerHelper "renderFormAction", (options) ->
 Handlebars.registerHelper "renderFormByModel", (model) ->
   formData = Form.createFormDataFromSchema(model)
   Template[formData.template].withData(formData)
+
+Handlebars.registerHelper "isSelected", () ->
+  console.log 'isSelected?', @, arguments
+  options.fn() if @selected
