@@ -17,22 +17,11 @@ Handlebars.registerHelper "getCharsLeftClass", ->
 Handlebars.registerHelper "charsLeft", ->
   Session.get "charsLeft" + @inputName
 
-Handlebars.registerHelper "renderFormField", (options) ->
-  Template[options.template].withData(options)
+Handlebars.registerHelper "renderFormField", () ->
+  return Template[@template]
 
-Handlebars.registerHelper "renderInputTemplate", (tpl) ->
-  Template[tpl].withData(@inputTemplate)
-
-Handlebars.registerHelper "renderForm", (options) ->
-  Template[options.template].withData(options)
+Handlebars.registerHelper "renderForm", () ->
+  Template[@template]
 
 Handlebars.registerHelper "renderFormAction", (options) ->
-  Template[options.template].withData(options)
-
-Handlebars.registerHelper "renderFormByModel", (model) ->
-  formData = Form.createFormDataFromSchema(model)
-  Template[formData.template].withData(formData)
-
-Handlebars.registerHelper "isSelected", () ->
-  console.log 'isSelected?', @, arguments
-  options.fn() if @selected
+  Template[@template]

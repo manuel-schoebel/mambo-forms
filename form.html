@@ -29,7 +29,7 @@
 
 <!-- FORM ACTIONS -->
 <template name="formActionButton">
-  <button class="btn btn-{{btnClass}} {{class}}" type="{{type}}" {{{attributes}}}>
+  <button class="btn btn-{{btnClass}} {{class}}" type="{{type}}" {{attributes}}>
     {{{label}}}
   </button>
 </template>
@@ -45,8 +45,8 @@
     {{#if formHint}}
       <span class="form-hint">({{>formHint}})</span>
     {{/if}}
-    <input id="input-{{inputName}}" class="form-control" name="{{ inputName }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" {{{attributes}}} {{#if disabled}}disabled="disabled"{{/if}} {{#if autofocus}}autofocus="autofocus"{{/if}} novalidate="novalidate">
-    <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{>getHelpTextForField }}</span>
+    <input id="input-{{inputName}}" class="form-control" name="{{ inputName }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" {{attributes}} novalidate="novalidate">
+    <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{ getHelpTextForField }}</span>
   </div>
 </template>
 
@@ -54,7 +54,7 @@
   <div class="form-group {{ setErrorClass }}">
     <label class="control-label" for="input-{{inputName}}">{{ label }}</label>
     <textarea id="input-{{inputName}}" class="form-control {{class}}" name="{{ inputName }}" placeholder="{{ placeholder }}" rows="{{ rows }}">{{ value }}</textarea>
-    <span id="{{ inputName }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{>getHelpTextForField }}</span>
+    <span id="{{ inputName }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
   </div>
 </template>
 
@@ -63,15 +63,42 @@
     <label class="control-label">{{label}}</label>
     <select name="{{inputName}}" class="form-control">
       {{#each options}}
-        <option value="{{ key }}" {{#unless selected}}babla{{/unless}}>{{ label }}</option>
+        <option value="{{ key }}" {{attributes}}>{{ label }}</option>
       {{/each}}
     </select>
-    <span id="{{inputName}}-help" class="text-danger" {{ helpTextVisibleStyle}}>{{>getHelpTextForField}}</span>
+    <span id="{{inputName}}-help" class="text-danger" {{ helpTextVisibleStyle}}>{{ getHelpTextForField}}</span>
   </div>
 </template>
 
 <template name="hiddenField">
   <input type="hidden" name="{{inputName}}" value="{{value}}">
+</template>
+
+<template name="controlGroupWithInlineRadio">
+  <div class="form-group {{ setErrorClass }}">
+    {{#if label}}
+      <label class="control-label">{{ label }}</label>
+      <br>
+    {{/if}}
+    {{#each radioBtns}}
+      <label class="radio-inline">
+        <input type="radio" id="{{id}}" value="{{value}}" name="{{inputName}}" {{attributes}}> {{label}}
+      </label>
+    {{/each}}
+    <span id="{{ inputName }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{ getHelpTextForField }}</span>
+  </div>
+</template>
+
+<template name="controlGroupWithCheckbox">
+  <div class="form-group {{ setErrorClass }}">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="{{inputName}}" value="{{value}}" {{attributes}}>
+        {{#if tplHref}}<a href="{{tplHref}}" target="_blank">{{ label }}</a>{{else}}{{label}}{{/if}}
+      </label>
+    </div>
+    <span id="{{ inputName }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{getHelpTextForField }}</span>
+  </div>
 </template>
 <!--
 <template name="controlGroupWithMultipleRemovableInput">
@@ -98,22 +125,6 @@
 </template>
 
 
-
-<template name="controlGroupWithInlineRadio">  
-  <div class="form-group {{>setErrorClass }}">
-    {{#if label}}
-      <label class="control-label">{{ label }}</label>
-      <br>
-    {{/if}}
-    {{#each radioBtns}}
-      <label class="radio-inline">
-        <input type="radio" id="{{id}}" value="{{value}}" name="{{inputName}}" {{#if checked}}checked="checked"{{/if}}> {{label}}
-      </label>
-    {{/each}}
-    <span id="{{ inputName }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{>getHelpTextForField }}</span>
-  </div>
-</template>
-
 <template name="helpBlock">
   <span class="help-block">{{label}}</span>
 </template>
@@ -127,17 +138,6 @@
   </div>
 </template>
 
-<template name="controlGroupWithCheckbox">
-  <div class="form-group {{>setErrorClass }}">
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" name="{{inputName}}" value="{{value}}" {{#if checked}}checked="checked"{{/if}}>
-        {{#if tplHref}}<a href="{{tplHref}}" target="_blank">{{ label }}</a>{{else}}{{label}}{{/if}}
-      </label>
-    </div>
-    <span id="{{ inputName }}-help" class="text-danger" {{ helpTextVisibleStyle }}>{{>getHelpTextForField }}</span>
-  </div>
-</template>
 
 <template name="controlGroupFileInput">
   <div class="form-group {{>setErrorClass }}">
