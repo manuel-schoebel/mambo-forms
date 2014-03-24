@@ -80,12 +80,12 @@ noLineBreaks = (str) ->
   noStr = str.replace(/(\r\n|\n|\r)/gm, '')
   return noStr
 
-###
+
 Template.controlGroupWithTextareaMaxChars.created = ->
   if @data.value
-    Session.set "charsLeft" + @data.name, @data.maxChars - noLineBreaks(@data.value).length
+    Session.set "charsLeft" + @data.inputName, @data.maxChars - noLineBreaks(@data.value).length
   else
-    Session.set "charsLeft" + @data.name, @data.maxChars
+    Session.set "charsLeft" + @data.inputName, @data.maxChars
 
 Template.controlGroupWithTextareaMaxChars.events "keyup textarea": (evt) ->
   str = undefined
@@ -93,10 +93,10 @@ Template.controlGroupWithTextareaMaxChars.events "keyup textarea": (evt) ->
   evt.preventDefault()
   str = $(evt.target).val()
   withoutLinebreaks = noLineBreaks(str)
-  Session.set "charsLeft" + @name, @maxChars - withoutLinebreaks.length
+  Session.set "charsLeft" + @inputName, @maxChars - withoutLinebreaks.length
 
-Template.baseForm.actionsRight = () ->
-  return true if @actionsPosition is 'right'
+# Template.baseForm.actionsRight = () ->
+#   return true if @actionsPosition is 'right'
 
 Template.controlGroupWithMultipleRemovableInput.noInput = () ->
   console.log 'controlGroupWithMultipleRemovableInput', @
@@ -105,9 +105,7 @@ Template.controlGroupWithMultipleRemovableInput.noInput = () ->
 Template.controlGroupWithMultipleRemovableInput.getLastIndex = () ->
   context = {
     removeHtml: @removeHtml
-    name: @name + '.' + @values.length
+    inputName: @inputName + '.' + @values.length
   }
   console.log 'with', context
   return context
-
-###
