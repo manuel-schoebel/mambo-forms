@@ -18,10 +18,17 @@ Handlebars.registerHelper "charsLeft", ->
   Session.get "charsLeft" + @inputName
 
 Handlebars.registerHelper "renderFormField", () ->
-  return Template[@template]
+  backwardCompat =
+    'controlGroupWithInput': 'input'
+    'controlGroupWithTextarea': 'textarea'
+  tpl = if backwardCompat[@template] then backwardCompat[@template] else @template
+  return Template[tpl]
 
 Handlebars.registerHelper "renderForm", () ->
   Template[@template]
 
 Handlebars.registerHelper "renderFormAction", (options) ->
-  Template[@template]
+  backwardCompat =
+    'formActionButton': 'button'
+  tpl = if backwardCompat[@template] then backwardCompat[@template] else @template
+  Template[tpl]

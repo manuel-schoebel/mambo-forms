@@ -28,7 +28,7 @@
 </template>
 
 <!-- FORM ACTIONS -->
-<template name="formActionButton">
+<template name="button">
   <button class="btn btn-{{btnClass}} {{class}}" type="{{type}}" data-dismiss="{{dataDismiss}}">
     {{{label}}}
   </button>
@@ -39,7 +39,7 @@
 </template>
 
 <!-- FORM ELEMENTS -->
-<template name="controlGroupWithInput">
+<template name="input">
   <div class="form-group {{ setErrorClass }}">
     {{#if label}}
     <label class="control-label">{{ label }}</label>
@@ -52,7 +52,7 @@
   </div>
 </template>
 
-<template name="controlGroupWithTextarea">
+<template name="textarea">
   <div class="form-group {{ setErrorClass }}">
     <label class="control-label" for="input-{{inputName}}">{{ label }}</label>
     <textarea id="input-{{inputName}}" class="form-control {{class}}" name="{{ inputName }}" placeholder="{{ placeholder }}" rows="{{ rows }}">{{ value }}</textarea>
