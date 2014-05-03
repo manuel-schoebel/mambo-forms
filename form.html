@@ -42,7 +42,7 @@
 <template name="input">
   <div class="form-group {{ setErrorClass }}">
     {{#if label}}
-    <label class="control-label">{{ label }}</label>
+    <label class="control-label">{{{label}}}</label>
     {{/if}}
     {{#if formHint}}
       <span class="form-hint">({{formHint}})</span>
@@ -54,7 +54,7 @@
 
 <template name="textarea">
   <div class="form-group {{ setErrorClass }}">
-    <label class="control-label" for="input-{{inputName}}">{{ label }}</label>
+    <label class="control-label" for="input-{{inputName}}">{{{label}}}</label>
     <textarea id="input-{{inputName}}" class="form-control {{class}}" name="{{ inputName }}" placeholder="{{ placeholder }}" rows="{{ rows }}">{{ value }}</textarea>
     <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{ getHelpTextForField }}</span>
   </div>
@@ -62,7 +62,7 @@
 
 <template name="controlGroupWithSelect">
   <div class="form-group {{ setErrorClass }}">
-    <label class="control-label">{{label}}</label>
+    <label class="control-label">{{{label}}}</label>
     <select name="{{inputName}}" class="form-control">
       {{#each options}}
         <option value="{{ key }}" checked="{{checked}}" {{attributes}}>{{ label }}</option>
@@ -79,7 +79,7 @@
 <template name="controlGroupWithInlineRadio">
   <div class="form-group {{ setErrorClass }}">
     {{#if label}}
-      <label class="control-label">{{ label }}</label>
+      <label class="control-label">{{{label}}}</label>
       <br>
     {{/if}}
     {{#each radioBtns}}
@@ -96,7 +96,7 @@
     <div class="checkbox">
       <label>
         <input type="checkbox" name="{{inputName}}" value="{{value}}" checked="{{checked}}" {{attributes}}>
-        {{#if tplHref}}<a href="{{tplHref}}" target="_blank">{{ label }}</a>{{else}}{{label}}{{/if}}
+        {{#if tplHref}}<a href="{{tplHref}}" target="_blank">{{{label}}}</a>{{else}}{{{label}}}{{/if}}
       </label>
     </div>
     <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{getHelpTextForField }}</span>
@@ -105,7 +105,7 @@
 
 <template name="controlGroupWithTextareaMaxChars">
   <div class="form-group {{ setErrorClass }}">
-    <label class="control-label">{{ label }}</label>
+    <label class="control-label">{{{label}}}</label>
     <span id="{{inputName}}-chars-left" class="form-hint {{getCharsLeftClass}}">({{ charsLeft }} characters left)</span>
     <textarea id="input-{{inputName}}" class="form-control" name="{{inputName}}" placeholder="{{placeholder}}" rows="{{rows}}">{{ value }}</textarea>
     <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{getHelpTextForField inputName }}</span>
@@ -113,7 +113,7 @@
 </template>
 
 <template name="controlGroupWithMultipleRemovableInput">
-  <label class="control-label" for="input-{{inputName}}">{{ label }}</label>
+  <label class="control-label" for="input-{{inputName}}">{{{label}}}</label>
     {{#each values}}
       {{> controlGroupWithRemovableInput }}
     {{/each}}
@@ -138,7 +138,7 @@
 
 <template name="controlGroupWithInputGroupAddon">
   <div class="form-group {{ setErrorClass }}">
-    <label class="control-label" for="input-{{inputName}}">{{ label }}</label>
+    <label class="control-label" for="input-{{inputName}}">{{{label}}}</label>
     <div class="input-group">
       {{#if addonLeft }}
       <span class="input-group-addon">{{ addonLeft.text }}</span>
