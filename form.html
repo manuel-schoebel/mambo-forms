@@ -60,7 +60,7 @@
   </div>
 </template>
 
-<template name="controlGroupWithSelect">
+<template name="select">
   <div class="form-group {{ setErrorClass }}">
     <label class="control-label">{{{label}}}</label>
     <select name="{{inputName}}" class="form-control">
@@ -76,7 +76,7 @@
   <input type="hidden" name="{{inputName}}" value="{{value}}">
 </template>
 
-<template name="controlGroupWithInlineRadio">
+<template name="radio">
   <div class="form-group {{ setErrorClass }}">
     {{#if label}}
       <label class="control-label">{{{label}}}</label>
@@ -91,7 +91,7 @@
   </div>
 </template>
 
-<template name="controlGroupWithCheckbox">
+<template name="checkbox">
   <div class="form-group {{ setErrorClass }}">
     <div class="checkbox">
       <label>

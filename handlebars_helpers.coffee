@@ -21,6 +21,9 @@ Handlebars.registerHelper "renderFormField", () ->
   backwardCompat =
     'controlGroupWithInput': 'input'
     'controlGroupWithTextarea': 'textarea'
+    'controlGroupWithSelect': 'select'
+    'controlGroupWithInlineRadio': 'radio'
+    'controlGroupWithCheckbox': 'checkbox'
   tpl = if backwardCompat[@template] then backwardCompat[@template] else @template
   return Template[tpl]
 
