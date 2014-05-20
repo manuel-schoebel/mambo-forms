@@ -65,7 +65,7 @@
     <label class="control-label">{{{label}}}</label>
     <select name="{{inputName}}" class="form-control">
       {{#each options}}
-        <option value="{{ key }}" checked="{{checked}}" {{attributes}}>{{ label }}</option>
+        <option value="{{ key }}" selected="{{selected}}" {{attributes}}>{{ label }}</option>
       {{/each}}
     </select>
     <span id="{{inputName}}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{ getHelpTextForField}}</span>
