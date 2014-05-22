@@ -61,6 +61,8 @@ Remove only one form error
 
 #Form Fields
 
+You can see all available fields in the [forms.html file](https://github.com/DerMambo/mambo-forms/blob/master/form.html)
+
 ###Input
 
     {{>input}}
