@@ -62,7 +62,9 @@
 
 <template name="select">
   <div class="form-group {{ setErrorClass }}">
-    <label class="control-label">{{{label}}}</label>
+    {{#if label}}
+      <label class="control-label">{{{label}}}</label>
+    {{/if}}
     <select name="{{inputName}}" class="form-control">
       {{#each options}}
         <option value="{{ key }}" selected="{{selected}}" {{attributes}}>{{ label }}</option>
