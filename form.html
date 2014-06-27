@@ -54,7 +54,9 @@
 
 <template name="textarea">
   <div class="form-group {{ setErrorClass }}">
-    <label class="control-label" for="input-{{inputName}}">{{{label}}}</label>
+    {{#if label}}
+      <label class="control-label" for="input-{{inputName}}">{{{label}}}</label>
+    {{/if}}
     <textarea id="input-{{inputName}}" class="form-control {{class}}" name="{{ inputName }}" placeholder="{{ placeholder }}" rows="{{ rows }}">{{ value }}</textarea>
     <span id="{{ inputName }}-help" class="text-danger" style="display:{{ helpTextVisibleStyle }};">{{ getHelpTextForField }}</span>
   </div>
